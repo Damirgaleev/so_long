@@ -6,7 +6,7 @@
 /*   By: tapple <tapple@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 00:22:29 by tapple            #+#    #+#             */
-/*   Updated: 2022/01/25 11:57:53 by tapple           ###   ########.fr       */
+/*   Updated: 2022/01/29 18:06:05 by tapple           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@ void	ft_free(t_map *map)
 	int	i;
 
 	i = 0;
-	while (map->map[i])
+	if (map->map)
 	{
-		free(map->map[i]);
-		i++;
+		while (map->map[i])
+		{
+			free(map->map[i]);
+			i++;
+		}
+		free(map->map);
 	}
-	free(map->map);
-	exit(1);
+	exit(0);
 }
 
 void	ft_free1(t_game *game)
@@ -31,15 +34,16 @@ void	ft_free1(t_game *game)
 	int	i;
 
 	i = 0;
-	while (game->map->map[i])
+	if (game->map->map)
 	{
-		free(game->map->map[i]);
-		i++;
+		while (game->map->map[i])
+		{
+			free(game->map->map[i]);
+			i++;
+		}
+		free(game->map->map);
 	}
-	free(game->map->map);
-	if (game->img)
-		free(game->img);
-	exit(1);
+	exit(0);
 }
 
 void	exit_content(t_game *game)

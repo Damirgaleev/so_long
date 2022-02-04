@@ -6,7 +6,7 @@
 /*   By: tapple <tapple@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 00:22:10 by tapple            #+#    #+#             */
-/*   Updated: 2022/01/25 00:22:11 by tapple           ###   ########.fr       */
+/*   Updated: 2022/02/04 23:14:23 by tapple           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,25 @@ int	count_line(int fd)
 	return (line);
 }
 
-void	copy_map(char *argv, t_map *map, int lines, int len)
+void	copy_map(char *argv, t_map *map, int lines)
 {
 	int		fd;
-	char	buf[2];
+	int		j;
 	int		i;
-	int		bytes;
 
+	j = 0;
 	i = 0;
-	bytes = 1;
-	buf[1] = '\0';
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 	{
 		perror("Error\nincorrect fd\n");
 		ft_free(map);
 	}
-	malloc_for_lines(map, lines, len);
-	while (bytes)
+	while (j < (lines + 1))
 	{
-		bytes = read(fd, buf, 1);
-		if (buf[0] != '\n' && buf[0] != '\0')
-			map->map[i] = ft_strjoin(map->map[i], buf);
-		else
-			i++;
+		map->map[i] = get_next_line(fd);
+		i++;
+		j++;
 	}
 	close(fd);
 }
@@ -75,7 +70,7 @@ int	len_line(char *argv)
 		perror("Error\nincorrect fd\n");
 		return (0);
 	}
-	while (bytes == 1)
+	while (bytes)
 	{
 		bytes = read(fd, &c, 1);
 		if (c == '\n')
@@ -128,13 +123,13 @@ int	read_map(char *argv, t_game *game, t_map *map)
 	game->size_y = line * IMG_SIZE;
 	len_first_line = len_line(argv);
 	game->size_x = len_first_line * IMG_SIZE;
-	map->map = malloc(sizeof(char *) * (line));
+	map->map = malloc(sizeof(char *) * line + 1);
 	if (!map->map)
 	{
 		perror("Error\nmalloc for line\n");
 		return (0);
 	}
-	copy_map(argv, map, line, len_first_line);
+	copy_map(argv, map, line);
 	game->map = map;
 	give_content(game);
 	return (1);

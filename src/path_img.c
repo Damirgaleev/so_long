@@ -6,7 +6,7 @@
 /*   By: tapple <tapple@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 00:21:54 by tapple            #+#    #+#             */
-/*   Updated: 2022/01/25 00:21:55 by tapple           ###   ########.fr       */
+/*   Updated: 2022/02/04 23:04:32 by tapple           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	path_image(t_game *game)
 	int		w;
 	int		h;
 
-	img = malloc(sizeof(*img));
+	img = malloc(sizeof(t_img));
 	if (img == NULL)
 	{
 		perror("Error\nmalloc for img\n");

@@ -6,7 +6,7 @@
 /*   By: tapple <tapple@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 00:22:25 by tapple            #+#    #+#             */
-/*   Updated: 2022/01/25 00:22:26 by tapple           ###   ########.fr       */
+/*   Updated: 2022/02/04 22:58:19 by tapple           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,16 @@ int	check_argv(char **argv, int argc)
 		printf("worning: only first arg processed\n");
 	if (ft_strlen(argv[1]) < 5 || (!check_end(argv[1], ".ber")))
 	{
-		printf("Error\nthe argument must have an extension .ber");
+		printf("Error\nthe argument must have an extension .ber\n");
 		return (0);
 	}
 	return (1);
+}
+
+void	isrectangular(int j, t_game *game)
+{
+	if (j != game->size_x / IMG_SIZE)
+		exit_content(game);
 }
 
 void	check_border(t_game *game)
@@ -57,11 +63,10 @@ void	check_border(t_game *game)
 	int	j;
 
 	i = 0;
-	j = 0;
-	while (i < game->size_y / IMG_SIZE)
+	while (game->map->map[i])
 	{
 		j = 0;
-		while (j < game->size_x / IMG_SIZE)
+		while (game->map->map[i][j])
 		{
 			if (game->map->map[i][j] != '1' && game->map->map[i][j] != '0'
 				&& game->map->map[i][j] != 'C' && game->map->map[i][j] != 'E'
@@ -76,6 +81,7 @@ void	check_border(t_game *game)
 				exit_content(game);
 			j++;
 		}
+		isrectangular(j, game);
 		i++;
 	}
 }

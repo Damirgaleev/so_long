@@ -6,7 +6,7 @@
 /*   By: tapple <tapple@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 23:48:28 by tapple            #+#    #+#             */
-/*   Updated: 2022/01/25 00:25:13 by tapple           ###   ########.fr       */
+/*   Updated: 2022/02/04 23:14:33 by tapple           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define SO_LONG_H
 
 # include "./minilibx/mlx.h"
-# include "./libft/libft.h"
 # include <stdio.h>
+# include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
 
@@ -78,9 +78,8 @@ int		check_argv(char **argv, int argc);
 void	check_border(t_game *game);
 void	check_content(t_game *game, t_content content);
 int		start(t_map *map, t_game *game, char **argv, int argc);
-void	malloc_for_lines(t_map *map, int lines, int len);
 int		count_line(int fd);
-void	copy_map(char *argv, t_map *map, int lines, int len);
+void	copy_map(char *argv, t_map *map, int lines);
 int		len_line(char *argv);
 void	give_content(t_game *game);
 int		read_map(char *argv, t_game *game, t_map *map);
@@ -94,4 +93,11 @@ void	player_move(t_game *game);
 void	collected(t_game *game);
 void	move(t_game *game, char os, int cor);
 int		input(int key, t_game *game);
+char	*get_next_line(int fd);
+char	*reader(char *line, int fd);
+char	*trim(char	*st_line);
+char	*get_line(char *st_line);
+int		ft_strlen(const char *s);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strchr(const char *s, int c);
 #endif
